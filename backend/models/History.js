@@ -58,7 +58,7 @@ historySchema.statics.getUserStats = async function(userId) {
   try {
     const stats = await this.aggregate([
       {
-        $match: { userId: mongoose.Types.ObjectId(userId) }
+        $match: { userId: new mongoose.Types.ObjectId(userId) }
       },
       {
         $group: {

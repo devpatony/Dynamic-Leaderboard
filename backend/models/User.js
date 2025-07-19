@@ -30,7 +30,7 @@ userSchema.index({ totalPoints: -1 });
 
 // Virtual field to format creation date
 userSchema.virtual('memberSince').get(function() {
-  return this.createdAt.toLocaleDateString();
+  return this.createdAt ? this.createdAt.toLocaleDateString() : 'Unknown';
 });
 
 // Static method to calculate and update all user rankings

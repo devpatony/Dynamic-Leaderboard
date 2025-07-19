@@ -308,7 +308,7 @@ function App() {
       {/* Footer */}
       <footer className="app-footer">
         <p>
-          Built with ❤️ using React & Node.js | 
+          Built with using React & Node.js | 
           Total Users: {users.length} | 
           Total Points: {users.reduce((sum, user) => sum + user.totalPoints, 0)}
         </p>

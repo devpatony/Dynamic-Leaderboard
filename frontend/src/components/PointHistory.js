@@ -46,6 +46,15 @@ const PointHistory = () => {
   };
 
   const fetchHistory = async () => {
+    console.log('🔄 fetchHistory called with:', {
+      selectedUserId,
+      searchTerm,
+      startDate,
+      endDate,
+      currentPage,
+      pageLimit
+    });
+    
     try {
       setLoading(true);
       setError('');
@@ -54,7 +63,9 @@ const PointHistory = () => {
       
       // If filtering by user
       if (selectedUserId) {
+        console.log('📊 Using getUserHistory for selectedUserId:', selectedUserId);
         response = await historyAPI.getUserHistory(selectedUserId, currentPage, pageLimit);
+        console.log('📊 getUserHistory response:', response.data);
         setHistory(response.data.data.history || []);
         setTotalPages(response.data.pagination?.total || 1);
         setTotalRecords(response.data.pagination?.totalRecords || 0);
@@ -69,21 +80,27 @@ const PointHistory = () => {
           ...(endDate && { endDate })
         };
         
+        console.log('🔍 Using searchHistory with params:', searchParams);
         response = await historyAPI.searchHistory(searchParams);
+        console.log('🔍 searchHistory response:', response.data);
         setHistory(response.data.data || []);
         setTotalPages(response.data.pagination?.total || 1);
         setTotalRecords(response.data.pagination?.totalRecords || 0);
       }
       // Default: get all history
       else {
+        console.log('📝 Using getHistory (no filters)');
         response = await historyAPI.getHistory(currentPage, pageLimit);
+        console.log('📝 getHistory response:', response.data);
         setHistory(response.data.data || []);
         setTotalPages(response.data.pagination?.total || 1);
         setTotalRecords(response.data.pagination?.totalRecords || 0);
       }
       
+      console.log('✅ fetchHistory completed. History count:', response.data.data?.length || 0);
+      
     } catch (error) {
-      console.error('Error fetching history:', error);
+      console.error('❌ Error fetching history:', error);
       setError('Failed to fetch history data');
     } finally {
       setLoading(false);
@@ -110,15 +127,13 @@ const PointHistory = () => {
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
+      console.log('� Page changed to:', newPage);
       setCurrentPage(newPage);
     }
   };
 
-  const handleFilterChange = () => {
-    setCurrentPage(1); // Reset to first page when filters change
-  };
-
   const clearFilters = () => {
+    console.log('🧹 Clearing all filters');
     setSelectedUserId('');
     setStartDate('');
     setEndDate('');
@@ -184,6 +199,7 @@ const PointHistory = () => {
         </div>
       )}
 
+
       {/* Filters */}
       <div className="history-filters">
         <h3>🔍 Filters</h3>
@@ -193,8 +209,9 @@ const PointHistory = () => {
             <select
               value={selectedUserId}
               onChange={(e) => {
+                console.log('🔧 User filter changed to:', e.target.value);
                 setSelectedUserId(e.target.value);
-                handleFilterChange();
+                setCurrentPage(1); // Reset to first page
               }}
             >
               <option value="">All Users</option>
@@ -213,8 +230,9 @@ const PointHistory = () => {
               placeholder="Search by user name..."
               value={searchTerm}
               onChange={(e) => {
+                console.log('🔧 Search term changed to:', e.target.value);
                 setSearchTerm(e.target.value);
-                handleFilterChange();
+                setCurrentPage(1); // Reset to first page
               }}
             />
           </div>
@@ -225,8 +243,9 @@ const PointHistory = () => {
               type="date"
               value={startDate}
               onChange={(e) => {
+                console.log('🔧 Start date changed to:', e.target.value);
                 setStartDate(e.target.value);
-                handleFilterChange();
+                setCurrentPage(1); // Reset to first page
               }}
             />
           </div>
@@ -237,8 +256,9 @@ const PointHistory = () => {
               type="date"
               value={endDate}
               onChange={(e) => {
+                console.log('🔧 End date changed to:', e.target.value);
                 setEndDate(e.target.value);
-                handleFilterChange();
+                setCurrentPage(1); // Reset to first page
               }}
             />
           </div>

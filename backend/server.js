@@ -14,17 +14,17 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/leaderboard', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => {
-  console.log('✅ Connected to MongoDB');
+  console.log(' Connected to MongoDB');
   // Initialize default users
   initializeDefaultUsers();
 })
 .catch((error) => {
-  console.error('❌ MongoDB connection error:', error);
+  console.error('MongoDB connection error:', error);
 });
 
 // Initialize default users if database is empty
@@ -87,8 +87,8 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📊 API endpoints available at http://localhost:${PORT}/api`);
+  console.log(` Server is running on port ${PORT}`);
+  console.log(` API endpoints available at http://localhost:${PORT}/api`);
 });
 
 // Export the app for Vercel
