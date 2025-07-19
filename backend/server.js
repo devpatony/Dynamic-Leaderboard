@@ -90,3 +90,6 @@ app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
   console.log(`📊 API endpoints available at http://localhost:${PORT}/api`);
 });
+
+// Export the app for Vercel
+module.exports = app;

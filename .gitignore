@@ -92,3 +92,6 @@ Thumbs.db
 
 # React specific
 /frontend/src/react-app-env.d.ts
+
+# Vercel
+.vercel

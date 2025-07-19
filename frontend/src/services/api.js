@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 // Configure the base URL for API calls
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+// In production (Vercel), use relative /api path
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? '/api' 
+  : process.env.REACT_APP_API_URL;
 
 // Create axios instance with default config
 const api = axios.create({
