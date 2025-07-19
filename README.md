@@ -1,4 +1,4 @@
-# Leaderboard System
+# Leaderboard System 
 
 A dynamic leaderboard system built with NodeJS backend and ReactJS frontend.
 
