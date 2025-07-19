@@ -2,6 +2,7 @@
 
 A dynamic leaderboard system built with NodeJS backend and ReactJS frontend.
 
+<img width="951" height="790" alt="image" src="https://github.com/user-attachments/assets/11c54757-3e0e-43f8-a827-93f613412634" />
 
 ## Features
 
