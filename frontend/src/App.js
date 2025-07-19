@@ -24,7 +24,7 @@ function App() {
   // Fetch users on component mount
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Clear messages after 5 seconds
   useEffect(() => {
